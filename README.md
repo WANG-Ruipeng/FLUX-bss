@@ -25,12 +25,14 @@ or reports.
 
 Local dry-run checks do not download weights or run FLUX inference.
 
-Default full Run All now includes the 4-case expanded mini-suite:
+Default full Run All now includes the 8-case expanded suite:
 
 ```text
 uniform8, uniform10, uniform20, uniform30, uniform40, reference_uniform50
 bss10, bss20, bss30, bss40
 ```
 
-Existing completed rows are reused through `--resume`; adding 30 NFE only schedules
-the missing `uniform30` and `bss30` rows plus downstream metrics/tables/reports.
+Existing completed rows are reused through `--resume`; moving from 4 to 8 cases only schedules
+the missing case005-case008 rows plus downstream metrics/tables/reports.
+
+The expanded suite is `8 cases x 10 methods = 80 manifest rows`.

@@ -200,6 +200,11 @@ def compute_rows(gain_rows: Sequence[Dict[str, Any]], resamples: int, tolerance:
         final = "Need more data"
     if provisional and final not in {"Need more data"}:
         final = f"Provisional {final}"
+    cross_note = (
+        "Primary metric is mask RGB-L1 closure gain; 4-case results are provisional."
+        if provisional
+        else "Primary metric is mask RGB-L1 closure gain; 8-case calibration is enabled."
+    )
     cross = {
         "model_id": "FLUX.1 Fill-dev",
         "setting": "Image Fill",
@@ -213,7 +218,7 @@ def compute_rows(gain_rows: Sequence[Dict[str, Any]], resamples: int, tolerance:
         "bds_all_mean_over_splits": fmt_float(mean(mean_by_tset["all"])),
         "bds_all_lcb_min_over_splits": fmt_float(all_min),
         "final_verdict": final,
-        "notes": "Primary metric is mask RGB-L1 closure gain; 4-case results are provisional.",
+        "notes": cross_note,
     }
     return [{k: v for k, v in row.items() if not k.startswith("_")} for row in rows], cross
 

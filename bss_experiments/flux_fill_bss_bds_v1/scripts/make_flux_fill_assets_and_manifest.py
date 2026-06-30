@@ -68,6 +68,30 @@ CASE_DEFS = [
         "expected_edit_region": "warm illuminated wall patch",
         "prompt": "Turn the masked wall patch into a warm window-shaped light reflection with subtle texture, keep unmasked areas stable.",
     },
+    {
+        "case_id": "case005",
+        "category": "storefront_sign_replace",
+        "expected_edit_region": "rectangular storefront sign",
+        "prompt": "Replace the masked blank storefront sign with a simple black and gold coffee shop sign, preserve the street facade and shadows.",
+    },
+    {
+        "case_id": "case006",
+        "category": "bookshelf_missing_books_fill",
+        "expected_edit_region": "empty middle shelf slot",
+        "prompt": "Fill the masked empty shelf slot with several upright colorful books, matching the shelf perspective and warm indoor lighting.",
+    },
+    {
+        "case_id": "case007",
+        "category": "lake_object_insert",
+        "expected_edit_region": "small lake foreground region",
+        "prompt": "Replace the masked lake patch with a small wooden rowboat, matching the water reflections and calm outdoor lighting.",
+    },
+    {
+        "case_id": "case008",
+        "category": "fabric_pattern_local_edit",
+        "expected_edit_region": "central fabric patch",
+        "prompt": "Turn the masked fabric patch into a blue embroidered floral pattern, preserving the surrounding folds and cloth texture.",
+    },
 ]
 
 
@@ -111,6 +135,41 @@ def draw_case(case_id: str, size: int, source_path: Path, mask_path: Path) -> No
         draw.rectangle([int(s * 0.18), int(s * 0.22), int(s * 0.42), int(s * 0.72)], outline=(70, 78, 86), width=max(3, s // 90))
         draw.rectangle([int(s * 0.58), int(s * 0.32), int(s * 0.82), int(s * 0.68)], fill=(112, 118, 124))
         md.rectangle([int(s * 0.55), int(s * 0.28), int(s * 0.85), int(s * 0.72)], fill=255)
+    elif case_id == "case005":
+        draw.rectangle([0, 0, s, int(s * 0.48)], fill=(190, 205, 216))
+        draw.rectangle([0, int(s * 0.48), s, s], fill=(82, 86, 82))
+        draw.rectangle([int(s * 0.08), int(s * 0.20), int(s * 0.92), int(s * 0.62)], fill=(172, 150, 126))
+        draw.rectangle([int(s * 0.14), int(s * 0.32), int(s * 0.40), int(s * 0.62)], fill=(95, 105, 112))
+        draw.rectangle([int(s * 0.48), int(s * 0.32), int(s * 0.86), int(s * 0.62)], fill=(98, 114, 120))
+        draw.rectangle([int(s * 0.28), int(s * 0.14), int(s * 0.72), int(s * 0.28)], fill=(210, 205, 190), outline=(80, 70, 55), width=max(2, s // 120))
+        md.rectangle([int(s * 0.26), int(s * 0.12), int(s * 0.74), int(s * 0.30)], fill=255)
+    elif case_id == "case006":
+        draw.rectangle([0, 0, s, s], fill=(185, 156, 118))
+        for y in [0.20, 0.42, 0.64, 0.86]:
+            draw.rectangle([int(s * 0.10), int(s * y), int(s * 0.90), int(s * y) + max(6, s // 70)], fill=(105, 70, 42))
+        colors = [(120, 40, 45), (48, 92, 130), (60, 130, 78), (180, 150, 62), (115, 70, 135)]
+        for i, x in enumerate(range(int(s * 0.14), int(s * 0.78), max(18, s // 22))):
+            shelf = 0.24 if i % 2 == 0 else 0.46
+            draw.rectangle([x, int(s * shelf), x + max(10, s // 55), int(s * (shelf + 0.16))], fill=colors[i % len(colors)])
+        draw.rectangle([int(s * 0.40), int(s * 0.46), int(s * 0.63), int(s * 0.63)], fill=(155, 128, 94))
+        md.rectangle([int(s * 0.37), int(s * 0.43), int(s * 0.66), int(s * 0.66)], fill=255)
+    elif case_id == "case007":
+        draw.rectangle([0, 0, s, int(s * 0.42)], fill=(136, 188, 222))
+        draw.rectangle([0, int(s * 0.42), s, s], fill=(66, 126, 150))
+        draw.polygon([(0, int(s * 0.42)), (int(s * 0.20), int(s * 0.26)), (int(s * 0.44), int(s * 0.42))], fill=(86, 124, 90))
+        draw.polygon([(int(s * 0.52), int(s * 0.42)), (int(s * 0.82), int(s * 0.24)), (s, int(s * 0.42))], fill=(78, 116, 84))
+        for y in range(int(s * 0.48), s, max(24, s // 32)):
+            draw.line([0, y, s, y + int(s * 0.03)], fill=(85, 145, 165), width=max(2, s // 160))
+        draw.ellipse([int(s * 0.42), int(s * 0.58), int(s * 0.64), int(s * 0.70)], fill=(80, 130, 150))
+        md.ellipse([int(s * 0.38), int(s * 0.54), int(s * 0.68), int(s * 0.74)], fill=255)
+    elif case_id == "case008":
+        draw.rectangle([0, 0, s, s], fill=(172, 156, 145))
+        for y in range(0, s, max(18, s // 30)):
+            shade = 156 + (y // max(1, s // 18)) % 20
+            draw.arc([int(s * 0.08), y - int(s * 0.08), int(s * 0.92), y + int(s * 0.18)], 5, 175, fill=(shade, shade - 8, shade - 14), width=max(1, s // 180))
+        draw.rectangle([int(s * 0.18), int(s * 0.18), int(s * 0.82), int(s * 0.82)], outline=(135, 118, 105), width=max(3, s // 90))
+        draw.ellipse([int(s * 0.42), int(s * 0.42), int(s * 0.58), int(s * 0.58)], fill=(150, 136, 128))
+        md.rectangle([int(s * 0.34), int(s * 0.34), int(s * 0.66), int(s * 0.66)], fill=255)
     else:
         raise ValueError(f"unknown case_id: {case_id}")
 
@@ -202,9 +261,9 @@ def write_asset_manifest(asset_root: Path, cases: Sequence[Dict[str, Any]], size
     ]
     for case in cases:
         case_id = case["case_id"]
-        lines.append(
-            f"| {case_id} | {case['category']} | `{asset_root / case_id / 'source.png'}` | `{asset_root / case_id / 'mask.png'}` | {case['prompt']} |"
-        )
+        source_display = (asset_root / case_id / "source.png").as_posix()
+        mask_display = (asset_root / case_id / "mask.png").as_posix()
+        lines.append(f"| {case_id} | {case['category']} | `{source_display}` | `{mask_display}` | {case['prompt']} |")
     text = "\n".join(lines) + "\n"
     (asset_root.parent / "asset_manifest.md").write_text(text, encoding="utf-8")
     if repo_copy:
@@ -222,7 +281,7 @@ def main() -> None:
     parser.add_argument("--max_sequence_length", type=int, default=512)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--dtype", default="bfloat16")
-    parser.add_argument("--repo_asset_manifest_copy", action="store_true", default=True)
+    parser.add_argument("--repo_asset_manifest_copy", action="store_true", default=False)
     args = parser.parse_args()
 
     run_root = Path(args.run_root)

@@ -95,7 +95,7 @@ def main() -> None:
         "",
         "## 14. Next Steps",
         "",
-        "- Expand to 8 cases if 4-case smoke/mini trends are promising.",
+        "- Review the 8-case suite visually and expand to more cases or additional seeds if trends remain promising.",
         "- Try FLUX.1 Canny-dev after fill tools pass.",
         "- Try Qwen-Image-Edit only after FLUX tooling is stable.",
     ]
