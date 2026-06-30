@@ -23,6 +23,19 @@ from common import (
 from schedule_utils import write_schedule_for_row
 
 
+def read_log_excerpt(path: str, max_chars: int = 4000) -> str:
+    log_path = Path(str(path))
+    if not log_path.exists():
+        return f"missing log: {log_path}"
+    try:
+        text = log_path.read_text(encoding="utf-8", errors="replace")
+    except Exception as exc:
+        return f"failed to read {log_path}: {exc!r}"
+    if len(text) > max_chars:
+        return "...\n" + text[-max_chars:]
+    return text
+
+
 def artifacts_ready(row: Dict[str, str]) -> bool:
     return Path(row["output_path"]).exists() and Path(row["schedule_json_path"]).exists()
 
@@ -144,6 +157,7 @@ def main() -> None:
         )
 
     processed = 0
+    failed_run_ids: List[str] = []
     for row in rows:
         if row["run_id"] not in selected_ids:
             continue
@@ -170,9 +184,16 @@ def main() -> None:
         if args.sync_drive:
             mirror_to_drive_if_available(run_root, Path(args.drive_run_root))
         if result["status"] == "failed":
+            failed_run_ids.append(row["run_id"])
             print(f"[failed] {row['run_id']}: {result.get('error_message')}")
+            print(f"[failed] stdout log: {row.get('stdout_log_path')}")
+            print(read_log_excerpt(row.get("stdout_log_path", "")))
+            print(f"[failed] stderr log: {row.get('stderr_log_path')}")
+            print(read_log_excerpt(row.get("stderr_log_path", "")))
             break
     print(f"processed {processed} selected row(s)")
+    if failed_run_ids:
+        raise SystemExit(f"run_manifest failed for {len(failed_run_ids)} row(s): {', '.join(failed_run_ids)}")
 
 
 if __name__ == "__main__":
