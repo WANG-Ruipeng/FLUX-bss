@@ -154,7 +154,7 @@ def write_report(path: Path, audit: Dict[str, Any]) -> None:
         "",
         "```bash",
         "huggingface-cli download black-forest-labs/FLUX.1-Fill-dev \\",
-        "  --local-dir /content/drive/MyDrive/ModelWeights/FLUX/FLUX.1-Fill-dev \\",
+        "  --local-dir /content/drive/MyDrive/Colab_Projects/FLUX-bss/models/FLUX.1-Fill-dev \\",
         "  --local-dir-use-symlinks False",
         "```",
     ]

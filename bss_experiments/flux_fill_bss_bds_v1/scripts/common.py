@@ -36,15 +36,13 @@ def repo_root() -> Path:
 
 REPO_ROOT = repo_root()
 REPO_EXPERIMENT_ROOT = REPO_ROOT / EXPERIMENT_REL
-DRIVE_WEIGHTS_ROOT = Path(
-    os.environ.get("DRIVE_WEIGHTS_ROOT", "/content/drive/MyDrive/ModelWeights/FLUX/FLUX.1-Fill-dev")
+DRIVE_PROJECT_ROOT = Path(
+    os.environ.get("DRIVE_PROJECT_ROOT", "/content/drive/MyDrive/Colab_Projects/FLUX-bss")
 )
-DRIVE_EXPERIMENT_ROOT = Path(
-    os.environ.get(
-        "DRIVE_EXPERIMENT_ROOT",
-        f"/content/drive/MyDrive/Colab_Projects/FLUX-Fill-BSS-BDS/{EXPERIMENT_NAME}",
-    )
-)
+DRIVE_RUNS_ROOT = Path(os.environ.get("DRIVE_RUNS_ROOT", str(DRIVE_PROJECT_ROOT / "runs")))
+DRIVE_MODELS_ROOT = Path(os.environ.get("DRIVE_MODELS_ROOT", str(DRIVE_PROJECT_ROOT / "models")))
+DRIVE_WEIGHTS_ROOT = Path(os.environ.get("DRIVE_WEIGHTS_ROOT", str(DRIVE_MODELS_ROOT / "FLUX.1-Fill-dev")))
+DRIVE_EXPERIMENT_ROOT = Path(os.environ.get("DRIVE_EXPERIMENT_ROOT", str(DRIVE_RUNS_ROOT / EXPERIMENT_NAME)))
 
 
 def is_colab_runtime() -> bool:
@@ -56,7 +54,7 @@ def default_run_root() -> Path:
     if env:
         return Path(env).expanduser()
     if is_colab_runtime():
-        return Path("/content/FLUX-Fill-BSS-Runs") / EXPERIMENT_NAME
+        return Path("/content/FLUX-bss-Runs") / EXPERIMENT_NAME
     return REPO_ROOT / "_local_runs" / EXPERIMENT_NAME
 
 

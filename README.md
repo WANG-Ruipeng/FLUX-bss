@@ -15,8 +15,8 @@ black-forest-labs/FLUX.1-Fill-dev
 Default Drive locations used by the Colab notebook:
 
 ```text
-/content/drive/MyDrive/ModelWeights/FLUX/FLUX.1-Fill-dev/
-/content/drive/MyDrive/Colab_Projects/FLUX-Fill-BSS-BDS/flux_fill_bss_bds_v1/
+/content/drive/MyDrive/Colab_Projects/FLUX-bss/models/FLUX.1-Fill-dev/
+/content/drive/MyDrive/Colab_Projects/FLUX-bss/runs/flux_fill_bss_bds_v1/
 ```
 
 The notebook asks for a Hugging Face token only when the Drive weight folder is
