@@ -48,10 +48,12 @@ class ScheduleUtilsTest(unittest.TestCase):
             ("uniform8", 8),
             ("uniform10", 10),
             ("uniform20", 20),
+            ("uniform30", 30),
             ("uniform40", 40),
             ("reference_uniform50", 50),
             ("bss10", 10),
             ("bss20", 20),
+            ("bss30", 30),
             ("bss40", 40),
         ]:
             payload = schedule_for_method(method)
@@ -59,7 +61,7 @@ class ScheduleUtilsTest(unittest.TestCase):
             self.assertEqual(validate_schedule_payload(payload), [])
 
     def test_bss_differs_from_same_nfe_uniform(self) -> None:
-        for nfe in [10, 20, 40]:
+        for nfe in [10, 20, 30, 40]:
             uniform = schedule_for_method(f"uniform{nfe}")
             bss = schedule_for_method(f"bss{nfe}")
             self.assertFalse(compare_uniform_and_bss(uniform, bss))

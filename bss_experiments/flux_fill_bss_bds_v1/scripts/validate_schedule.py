@@ -55,7 +55,7 @@ def validate_manifest(path: Path, require_files: bool = False) -> Tuple[List[str
             errors.append(f"{case_id}: prompt/source/mask/seed are not fixed across methods")
 
         by_method = {row["method"]: payload_by_run.get(row["run_id"]) for row in case_rows}
-        for nfe in [10, 20, 40]:
+        for nfe in [10, 20, 30, 40]:
             uniform = by_method.get(f"uniform{nfe}")
             bss = by_method.get(f"bss{nfe}")
             if uniform is None or bss is None:

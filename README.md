@@ -24,3 +24,13 @@ missing or an explicit re-download is requested. Tokens are not written to code
 or reports.
 
 Local dry-run checks do not download weights or run FLUX inference.
+
+Default full Run All now includes the 4-case expanded mini-suite:
+
+```text
+uniform8, uniform10, uniform20, uniform30, uniform40, reference_uniform50
+bss10, bss20, bss30, bss40
+```
+
+Existing completed rows are reused through `--resume`; adding 30 NFE only schedules
+the missing `uniform30` and `bss30` rows plus downstream metrics/tables/reports.

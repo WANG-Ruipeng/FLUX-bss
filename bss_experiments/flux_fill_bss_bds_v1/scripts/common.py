@@ -83,10 +83,12 @@ RUN_SUBDIRS = [
     "outputs/uniform8",
     "outputs/uniform10",
     "outputs/uniform20",
+    "outputs/uniform30",
     "outputs/uniform40",
     "outputs/reference_uniform50",
     "outputs/bss10",
     "outputs/bss20",
+    "outputs/bss30",
     "outputs/bss40",
     "reports",
     "schedules",
@@ -117,6 +119,14 @@ METHOD_SPECS: Dict[str, Dict[str, Any]] = {
         "actual_nfe": 20,
         "num_inference_steps": 20,
         "base_sample_steps": 20,
+        "split_pairs": "",
+    },
+    "uniform30": {
+        "method_family": "uniform",
+        "sampler_mode": "uniform",
+        "actual_nfe": 30,
+        "num_inference_steps": 30,
+        "base_sample_steps": 30,
         "split_pairs": "",
     },
     "uniform40": {
@@ -151,6 +161,14 @@ METHOD_SPECS: Dict[str, Dict[str, Any]] = {
         "base_sample_steps": 18,
         "split_pairs": "0,-1",
     },
+    "bss30": {
+        "method_family": "bss",
+        "sampler_mode": "bss",
+        "actual_nfe": 30,
+        "num_inference_steps": 30,
+        "base_sample_steps": 28,
+        "split_pairs": "0,-1",
+    },
     "bss40": {
         "method_family": "bss",
         "sampler_mode": "bss",
@@ -162,7 +180,7 @@ METHOD_SPECS: Dict[str, Dict[str, Any]] = {
 }
 
 SMOKE_METHODS = ["uniform8", "uniform10", "bss10", REFERENCE_METHOD]
-MINI_METHODS = ["uniform8", "uniform10", "uniform20", "uniform40", REFERENCE_METHOD, "bss10", "bss20", "bss40"]
+MINI_METHODS = ["uniform8", "uniform10", "uniform20", "uniform30", "uniform40", REFERENCE_METHOD, "bss10", "bss20", "bss30", "bss40"]
 
 MANIFEST_FIELDS = [
     "run_id",

@@ -23,7 +23,7 @@ def plot_metric(run_root: Path, rows: List[Dict[str, str]], metric: str, output_
             by_method[row["method"]].append(value)
     if not by_method:
         return
-    order = ["uniform8", "uniform10", "bss10", "uniform20", "bss20", "uniform40", "bss40", REFERENCE_METHOD]
+    order = ["uniform8", "uniform10", "bss10", "uniform20", "bss20", "uniform30", "bss30", "uniform40", "bss40", REFERENCE_METHOD]
     labels = [m for m in order if m in by_method]
     values = [sum(by_method[m]) / len(by_method[m]) for m in labels]
     plt.figure(figsize=(9, 4))
@@ -55,7 +55,7 @@ def write_side_by_side(run_root: Path, manifest_rows: List[Dict[str, str]]) -> N
     index_path.parent.mkdir(parents=True, exist_ok=True)
     panels = [
         ["source", "mask", "uniform8", "uniform10", "bss10", REFERENCE_METHOD],
-        ["source", "mask", "uniform10", "bss10", "uniform20", "bss20", "uniform40", "bss40", REFERENCE_METHOD],
+        ["source", "mask", "uniform10", "bss10", "uniform20", "bss20", "uniform30", "bss30", "uniform40", "bss40", REFERENCE_METHOD],
     ]
     lines = [
         "<!doctype html>",
