@@ -158,11 +158,15 @@ def main() -> None:
         )
 
     processed = 0
+    skipped_ready = 0
     failed_run_ids: List[str] = []
     for row in rows:
         if row["run_id"] not in selected_ids:
             continue
         if args.resume and completed_ready(row) and not args.force:
+            row["status"] = "done"
+            row["error_message"] = ""
+            skipped_ready += 1
             continue
         result = run_one(row, runner, force=bool(args.force), dry_run=bool(args.dry_run))
         row["status"] = result["status"]
@@ -192,7 +196,10 @@ def main() -> None:
             print(f"[failed] stderr log: {row.get('stderr_log_path')}")
             print(read_log_excerpt(row.get("stderr_log_path", "")))
             break
-    print(f"processed {processed} selected row(s)")
+    write_csv(manifest_path, rows, MANIFEST_FIELDS)
+    if args.sync_drive:
+        mirror_to_drive_if_available(run_root, Path(args.drive_run_root))
+    print(f"processed {processed} selected row(s); resumed {skipped_ready} completed row(s)")
     if failed_run_ids:
         raise SystemExit(f"run_manifest failed for {len(failed_run_ids)} row(s): {', '.join(failed_run_ids)}")
 
