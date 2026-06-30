@@ -1,0 +1,27 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Local/Colab run products. Keep generated model outputs and logs out of git.
+_local_runs/
+**/outputs/
+**/logs/*.log
+**/logs/*.runtime.json
+
+# Generated synthetic image/mask files are reproducible from scripts.
+bss_experiments/flux_fill_bss_bds_v1/assets/fill_cases/**/*.png
+
+# Never store credentials or heavyweight model artifacts here.
+.env
+*.ckpt
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.onnx
+*.mp4
+*.mov
+*.avi

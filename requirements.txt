@@ -1,0 +1,12 @@
+diffusers
+transformers
+accelerate
+safetensors
+sentencepiece
+huggingface_hub
+opencv-python
+pillow
+imageio
+pandas
+numpy
+matplotlib
