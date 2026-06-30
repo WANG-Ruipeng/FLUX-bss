@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import shlex
 import time
+import traceback
 from pathlib import Path
 from typing import Any, Dict, List, Sequence
 
@@ -106,7 +107,7 @@ def run_one(row: Dict[str, str], runner: Any, force: bool, dry_run: bool) -> Dic
         return result
     except Exception as exc:
         runtime = time.perf_counter() - started
-        Path(row["stderr_log_path"]).write_text(repr(exc) + "\n", encoding="utf-8")
+        Path(row["stderr_log_path"]).write_text(traceback.format_exc(), encoding="utf-8")
         return {"status": "failed", "skipped": False, "runtime_sec": runtime, "error_message": repr(exc)}
 
 
