@@ -152,10 +152,13 @@ def write_report(path: Path, audit: Dict[str, Any]) -> None:
         "",
         "FLUX.1 Fill-dev is gated. If the local Drive weights are missing or the license is not accepted, stop after this audit and download only after accepting the Hugging Face license:",
         "",
-        "```bash",
-        "huggingface-cli download black-forest-labs/FLUX.1-Fill-dev \\",
-        "  --local-dir /content/drive/MyDrive/Colab_Projects/FLUX-bss/models/FLUX.1-Fill-dev \\",
-        "  --local-dir-use-symlinks False",
+        "```python",
+        "from huggingface_hub import snapshot_download",
+        "snapshot_download(",
+        "    repo_id=\"black-forest-labs/FLUX.1-Fill-dev\",",
+        "    local_dir=\"/content/drive/MyDrive/Colab_Projects/FLUX-bss/models/FLUX.1-Fill-dev\",",
+        "    token=hf_token,",
+        ")",
         "```",
     ]
     path.parent.mkdir(parents=True, exist_ok=True)
